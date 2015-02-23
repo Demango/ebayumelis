@@ -12,4 +12,4 @@
 /bin/
 /composer.phar
 composer.lock
-
+crowdin.yaml
