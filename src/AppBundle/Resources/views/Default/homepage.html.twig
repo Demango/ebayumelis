@@ -1,0 +1,70 @@
+{% extends "AppBundle:Default:layout.html.twig" %}
+
+{% block title %}{{ 'homepage'|trans }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/stylesheet.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashMessages in app.session.flashbag.all %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <a href="{{ path('createListing') }}">{{ 'new_listing'|trans }}</a>
+    <div class="dropdown" style="float: right">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        {{ 'language'|trans }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'en' } ) }}">en</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'lv' } ) }}">lv</a>
+        </li>
+      </ul>
+    </div>
+    <table>
+        <tbody>
+            {% for listing in listings %}
+                <section class="listing">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <section>
+                                    {{ listing.title }}
+                                </section>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    {% if listing.document %}
+                                        <img src="/uploads/documents/{{ listing.document.path }}" class="listing-img">
+                                    {% endif %}
+                                    {{ listing.body[:100] }}
+                                    {% if listing.body|length > 100 %}
+                                        ...
+                                    {% endif %}
+                                </p>
+                                <section id="listing-small">
+                                    <p><h3>{{ listing.price }} &#8364;</h3></p>
+                                    <p>{{ listing.created | date }}</p>
+                                </section>
+                                <form action="{{ path('removeListing', { id: listing.id } ) }}" method="POST">
+                                    <input class="btn btn-default listing-btn" type="submit" value={{ 'delete'|trans }}>
+                                </form>
+                            </div>
+                    </div>
+                </section>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "AppBundle:Default:layout.html.twig" %}
+
+{% block title %}{{ 'add_listing_title'|trans }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/stylesheet.css') }}">
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('homepage') }}">{{ 'go_home'|trans }}</a>
+    <section>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

@@ -1,0 +1,42 @@
+section div{
+
+}
+
+section>div {
+    max-width: 25%;
+}
+section.listing>div:hover {
+    background-color: #c0c0c0 !important;
+    transition: all .5s ease-in;
+}
+
+.panel-default {
+    margin-bottom: 10px !important;
+}
+
+#listing-small p {
+    margin-bottom: 0px;
+    float: left;
+}
+
+.field-class {
+    width: 25% !important;
+}
+
+.label-class {
+    margin-left: 5px;
+    width: 50px;
+}
+
+.field-body {
+    height: 100px !important;
+}
+
+.listing-btn {
+    float: right;
+}
+
+.listing-img {
+    max-width: 100%;
+    height: auto;
+}

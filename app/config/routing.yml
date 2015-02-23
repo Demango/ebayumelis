@@ -1,0 +1,7 @@
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation
+
+_form:
+    pattern:  form
+    defaults: { _controller: AppBundle:Default:form }

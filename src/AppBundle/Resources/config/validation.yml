@@ -1,0 +1,11 @@
+AppBundle\Entity\Listing:
+    properties:
+        price:
+            - LessThan:
+                value: 10000000
+
+AppBundle\Entity\Document:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
