@@ -7,63 +7,80 @@
 {% endblock %}
 
 {% block body %}
-    {% for flashMessages in app.session.flashbag.all %}
-        {% for flashMessage in flashMessages %}
-            <div class="alert alert-warning">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    <a href="{{ path('createListing') }}">{{ 'new_listing'|trans }}</a>
-    <div class="dropdown" style="float: right">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        {{ 'language'|trans }}
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'en' } ) }}">en</a>
-        </li>
-        <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'lv' } ) }}">lv</a>
-        </li>
-      </ul>
-    </div>
-    <table>
-        <tbody>
-            {% for listing in listings %}
-                <section class="listing">
-                    <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <section>
-                                    {{ listing.title }}
-                                </section>
-                            </div>
-                            <div class="panel-body">
-                                <p>
-                                    {% if listing.document %}
-                                        <img src="/uploads/documents/{{ listing.document.path }}" class="listing-img">
-                                    {% endif %}
-                                    {{ listing.body[:100] }}
-                                    {% if listing.body|length > 100 %}
-                                        ...
-                                    {% endif %}
-                                </p>
-                                <section id="listing-small">
-                                    <p><h3>{{ listing.price }} &#8364;</h3></p>
-                                    <p>{{ listing.created | date }}</p>
-                                </section>
-                                <form action="{{ path('removeListing', { id: listing.id } ) }}" method="POST">
-                                    <input class="btn btn-default listing-btn" type="submit" value={{ 'delete'|trans }}>
-                                </form>
-                            </div>
-                    </div>
-                </section>
+    <section class="todo" ng-controller="appController as app">
+        {% for flashMessages in app.session.flashbag.all %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-warning">
+                    {{ flashMessage }}
+                </div>
             {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+        <a href="{{ path('createListing') }}">{{ 'new_listing'|trans }}</a>
+        <table>
+            <tbody>
+                {% for listing in listings %}
+                    <section class="listing">
+                        <div class="panel panel-default" ng-click="app.selectListing({{ listing.id }})">
+                                <div class="panel-heading">
+                                    <section>
+                                        {{ listing.title }}
+                                    </section>
+                                </div>
+                                <div class="panel-body">
+                                    <p>
+                                        {% if listing.document %}
+                                            <img src="/uploads/documents/{{ listing.document.path }}" class="listing-img">
+                                        {% endif %}
+                                        {{ listing.body[:100] }}
+                                        {% if listing.body|length > 100 %}
+                                            ...
+                                        {% endif %}
+                                    </p>
+                                    <section id="listing-small">
+                                        <p><h3>{{ listing.price }} &#8364;</h3></p>
+                                        <p>{{ listing.created | date("d/m/Y") }}</p>
+                                    </section>
+                                    <form action="{{ path('removeListing', { id: listing.id } ) }}" method="POST">
+                                        <input class="btn btn-default listing-btn" type="submit" value={{ 'delete'|trans }}>
+                                    </form>
+                                </div>
+                        </div>
+                    </section>
+                    <div class="big-listing" ng-if="app.id = {{ listing.id }}">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">Panel title</h3>
+                          </div>
+                          <div class="panel-body">
+                            Panel content
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="dropdown", style="position: fixed; top: 0px; right: 0px">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            {{ 'language'|trans }}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'en' } ) }}">en</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'lv' } ) }}">lv</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="{{ path('homepage', { _locale: 'ru' } ) }}">ru</a>
+            </li>
+          </ul>
+        </div>
+    </section>
 {% endblock %}
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('bundles/app/js/app.js') }}"></script>
 {% endblock %}

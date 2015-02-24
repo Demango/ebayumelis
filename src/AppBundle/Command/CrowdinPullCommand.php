@@ -41,6 +41,7 @@ EOF
         $config = [
             'project_identifier' => 'ebayumelis',
             'api_key' => $key,
+            'base_url' => 'https://api.crowdin.com',
             'base_path' => 'src',
             'preserve_hierarchy' => true,
             'files' => []

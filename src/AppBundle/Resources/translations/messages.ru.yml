@@ -1,14 +1,14 @@
 ---
-new_listing: Add a new listing
-homepage: Welcome
-add_listing_title: Adding a new listing
-go_home: Go home
-delete: Delete!
-title: Title
-body: Body
-price: Price
-image: Image
-language: Language
-create listing: Create Listing
-Listing created!: A new listing has been created! Much wow!
-Listing deleted!: A listing has been deleted! Much wow!
+new_listing: Добавить новое объявление
+homepage: Добро пожаловать
+add_listing_title: Добавить новое объявление
+go_home: Идити домой
+delete: Удалит!
+title: Название
+body: Тело
+price: Цена
+image: Изображение
+language: Язык
+create listing: Создать объявление
+Listing created!: Было создано новое объявление!
+Listing deleted!: Список был удален!

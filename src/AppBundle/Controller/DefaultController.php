@@ -8,8 +8,9 @@ use AppBundle\Form\Type\ListingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\FOSRestController;
 
-class DefaultController extends Controller
+class DefaultController extends FOSRestController
 {
     /**
      * @Route("/", name="homepage")
@@ -21,9 +22,14 @@ class DefaultController extends Controller
 
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $listings = $em->getRepository('AppBundle:Listing')->findBy([], ['created' => 'DESC']);
+        $data = $em->getRepository('AppBundle:Listing')->findBy([], ['created' => 'DESC']);
 
-        return $this->render('AppBundle:Default:homepage.html.twig', array('listings' => $listings));
+        $view = $this->view($data, 200)
+            ->setTemplate("AppBundle:Default:homepage.html.twig")
+            ->setTemplateVar('listings')
+        ;
+
+        return $this->handleView($view);
     }
 
     /**
